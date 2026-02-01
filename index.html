@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>One Question</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #2b0033, #000000);
+      color: white;
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      color: #ff003c;
+      text-shadow: 0 0 12px purple, 0 0 20px red;
+      z-index: 2;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 300px;
+      z-index: 2;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255,0,80,0.6);
+    }
+
+    #yesBtn {
+      background: linear-gradient(45deg, #ff003c, #8a00ff);
+      color: white;
+      font-weight: bold;
+    }
+
+    #noBtn {
+      background: black;
+      color: #ff003c;
+      border: 2px solid #ff003c;
+    }
+
+    #result {
+      display: none;
+      text-align: center;
+      z-index: 2;
+    }
+
+    #result h2 {
+      color: #ff4dff;
+      text-shadow: 0 0 15px red;
+      font-size: 2rem;
+    }
+
+    #result img {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255,0,120,0.7);
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 24px;
+      color: #ff003c;
+      animation: floatUp linear forwards;
+      opacity: 0.8;
+      text-shadow: 0 0 10px red;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">Will you be my valentine? 🖤</h1>
+
+  <div class="buttons" id="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <div id="result">
+    <h2>Good girl<br>You belong with me now ❤️‍🔥</h2>
+    <img src="love.gif" alt="Dark Love">
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const buttons = document.getElementById("buttons");
+    const result = document.getElementById("result");
+    const question = document.getElementById("question");
+
+    let scale = 1;
+
+    noBtn.addEventListener("click", () => {
+      scale += 0.35;
+      yesBtn.style.transform = `scale(${scale})`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      buttons.style.display = "none";
+      question.innerText = "Perfect choice";
+      result.style.display = "block";
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+      heart.style.fontSize = (16 + Math.random() * 20) + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+</body>
+</html>
